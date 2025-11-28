@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>901 ULTRA League</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #ffffff;
+      --black: #000000;
+      --red: #a30001;
+      --ink: #0c0c0c;
+      --card: #0f0f0f;
+      --soft: rgba(255, 255, 255, 0.75);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Barlow', 'Segoe UI', system-ui, sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .page {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background: radial-gradient(circle at 12% 18%, rgba(163, 0, 1, 0.45) 0, transparent 42%),
+                  radial-gradient(circle at 82% 8%, rgba(163, 0, 1, 0.35) 0, transparent 45%),
+                  linear-gradient(140deg, #090909 0%, #0c0c0c 50%, #060606 100%);
+    }
+
+    header.hero {
+      position: relative;
+      padding: 48px 5vw 72px;
+      overflow: hidden;
+    }
+
+    header.hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("./ultraman-icons/sillouette.png") no-repeat right -120px bottom -40px;
+      background-size: 560px;
+      opacity: 0.09;
+      pointer-events: none;
+    }
+
+    header.hero::after {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(163, 0, 1, 0.35) 0%, transparent 60%);
+      right: -60px;
+      top: -60px;
+      filter: blur(12px);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.15fr 0.95fr;
+      gap: 48px;
+      align-items: center;
+      z-index: 1;
+    }
+
+    .logo-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: 1px;
+      font-size: 15px;
+      text-transform: uppercase;
+      color: var(--soft);
+      padding: 8px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      width: fit-content;
+      backdrop-filter: blur(4px);
+    }
+
+    .logo-pill {
+      background: var(--red);
+      color: var(--white);
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', 'Barlow', sans-serif;
+      font-size: clamp(48px, 5vw, 80px);
+      letter-spacing: 1.5px;
+      line-height: 1.05;
+      margin: 18px 0 12px;
+      text-transform: uppercase;
+    }
+
+    .highlight {
+      color: var(--red);
+      text-shadow: 0 6px 22px rgba(163, 0, 1, 0.4);
+    }
+
+    .lede {
+      max-width: 680px;
+      color: var(--soft);
+      font-size: 18px;
+      margin-bottom: 24px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    .chip span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 0 5px rgba(163, 0, 1, 0.25);
+    }
+
+    .cta-card {
+      background: linear-gradient(155deg, #ffffff 0%, #f5f5f5 100%);
+      color: var(--black);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
+      border: 2px solid #e6e6e6;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-card::after {
+      content: "";
+      position: absolute;
+      inset: -40% -40% auto auto;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(163, 0, 1, 0.22) 0%, transparent 62%);
+      transform: rotate(18deg);
+    }
+
+    .cta-headline {
+      font-family: 'Bebas Neue', 'Barlow', sans-serif;
+      font-size: 32px;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-copy {
+      color: #111;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .qr-stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .qr-frame {
+      background: var(--black);
+      color: var(--white);
+      border-radius: 14px;
+      padding: 14px;
+      border: 2px solid var(--red);
+      box-shadow: 0 16px 35px rgba(163, 0, 1, 0.28);
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .qr-frame::before {
+      content: "";
+      position: absolute;
+      inset: -40% auto auto -40%;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(163, 0, 1, 0.35) 0%, transparent 65%);
+    }
+
+    .qr-placeholder {
+      width: min(220px, 100%);
+      aspect-ratio: 1 / 1;
+      border-radius: 12px;
+      border: 1px dashed rgba(255, 255, 255, 0.35);
+      display: grid;
+      place-items: center;
+      padding: 16px;
+      text-align: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--soft);
+    }
+
+    .qr-placeholder strong {
+      color: var(--white);
+      letter-spacing: 0.6px;
+    }
+
+    .qr-img {
+      width: min(220px, 100%);
+      display: none;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.45);
+      background: var(--white);
+      padding: 6px;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--red);
+      color: var(--white);
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 12px 28px rgba(163, 0, 1, 0.35);
+      transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(163, 0, 1, 0.42);
+      background: #c00002;
+    }
+
+    .cta-button img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      filter: invert(1);
+    }
+
+    .cta-note {
+      font-size: 13px;
+      color: #222;
+    }
+
+    main {
+      padding: 32px 5vw 72px;
+      position: relative;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .section-kicker {
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', 'Barlow', sans-serif;
+      font-size: 30px;
+      letter-spacing: 0.6px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .feature-card::before {
+      content: "";
+      position: absolute;
+      width: 4px;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background: linear-gradient(180deg, rgba(163, 0, 1, 0.85) 0%, rgba(163, 0, 1, 0.35) 100%);
+    }
+
+    .feature-title {
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: 0.2px;
+    }
+
+    .feature-copy {
+      color: var(--soft);
+      font-size: 15px;
+    }
+
+    .banner {
+      margin-top: 44px;
+      background: linear-gradient(120deg, rgba(163, 0, 1, 0.9) 0%, rgba(163, 0, 1, 0.6) 100%);
+      border-radius: 16px;
+      padding: 22px 24px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .banner p {
+      max-width: 720px;
+    }
+
+    .mini-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      background: var(--white);
+      color: var(--black);
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .duo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .panel {
+      padding: 18px;
+      border-radius: 14px;
+      background: #f9f9f9;
+      color: #0e0e0e;
+      border: 1px solid #ededed;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .panel h3 {
+      font-family: 'Bebas Neue', 'Barlow', sans-serif;
+      letter-spacing: 0.8px;
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .panel ul {
+      margin-left: 18px;
+      color: #111;
+    }
+
+    .panel li {
+      margin: 6px 0;
+    }
+
+    footer {
+      padding: 28px 5vw 32px;
+      color: var(--soft);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: #050505;
+      margin-top: auto;
+    }
+
+    footer .footer-flex {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    footer a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    @media (max-width: 960px) {
+      header.hero {
+        padding: 42px 24px 60px;
+      }
+      main {
+        padding: 28px 24px 64px;
+      }
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+      header.hero::before {
+        background-position: right -120px bottom -80px;
+        background-size: 420px;
+      }
+      .cta-card {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .cta-card {
+        padding: 22px;
+      }
+      .cta-button {
+        width: 100%;
+      }
+      .chips {
+        gap: 10px;
+      }
+      .banner {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="logo-mark">
+            <span class="logo-pill">901</span>
+            ULTRA League
+          </div>
+          <h1><span class="highlight">Join the 901 ULTRA</span> League HQ</h1>
+          <p class="lede">
+            The sharpest way to stay synced with the 901 ULTRA League: news, match nights, rulesets,
+            and the squad that keeps the fights clean, fast, and hype. Drop in, grab the Light.
+          </p>
+          <div class="chips">
+            <span class="chip"><span></span> Memphis-rooted community</span>
+            <span class="chip"><span></span> Weekly play + special events</span>
+            <span class="chip"><span></span> Event updates first in Discord</span>
+            <span class="chip"><span></span> Friendly sparring + competitive events</span>
+          </div>
+        </div>
+        <div class="cta-card">
+          <div class="cta-headline">Step into the server</div>
+          <p class="cta-copy">
+            Scan the QR or hit the button to pop straight into Discord.
+          </p>
+          <div class="qr-stack">
+            <div class="qr-frame">
+              <div class="qr-placeholder" id="qr-placeholder">
+                <strong>Your QR goes here</strong>
+                <div style="font-size: 13px; line-height: 1.4; max-width: 180px;">
+                  Save your QR as <code>discord-qr.png</code> in this folder and it will render automatically.
+                </div>
+              </div>
+              <img
+                class="qr-img"
+                src="discord-qr.png"
+                alt="Discord QR code"
+                onload="this.style.display='block'; document.getElementById('qr-placeholder').style.display='none';"
+                onerror="this.style.display='none'; document.getElementById('qr-placeholder').style.display='grid';"
+              >
+            </div>
+            <a class="cta-button" href="https://discord.gg/kbVHK566sM" target="_blank" rel="noreferrer noopener">
+              <img src="discord-logo.png" alt="Discord">
+              Join the Discord
+            </a>
+            <!-- <div class="cta-note">
+              Invite link set to <code>discord.gg/kbVHK566sM</code>. Update if you rotate invites later.
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </header>
+    
+    <main>
+      <div class="section-head">
+        <div class="section-kicker">What to expect</div>
+        <div class="section-title">Built for competitive energy and welcoming vibes</div>
+      </div>
+      <div class="features">
+        <div class="feature-card">
+          <div class="feature-title">Events that hit hard</div>
+          <p class="feature-copy">Weekly Challenges or Meet-ups, Galaxy Cups, and custom events to keep the league feeling alive.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-title">Passionate Judges</div>
+          <p class="feature-copy">Judges on request for any events or online matches, with clear rulings.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-title">Showcase-ready Server</div>
+          <p class="feature-copy">Channels built ready to highlight your best matches.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-title">Training partners</div>
+          <p class="feature-copy">Find sparring on demand, post VODs, and swap tech with players who want to level up.</p>
+        </div>
+      </div>
+
+      <!-- <div class="banner">
+        <p>
+          Want to feature the QR prominently? Drop your QR image as <code>discord-qr.png</code> in this repo and deploy.
+          The card above swaps from placeholder text to your code automatically.
+        </p>
+        <a class="mini-button" href="https://discord.gg/kbVHK566sM" target="_blank" rel="noreferrer noopener">Join now</a>
+      </div> -->
+
+      <div class="duo">
+        <div class="panel">
+          <h3>League snapshot</h3>
+          <ul>
+            <li>Region: Memphis-area players and friends of the 901 ULTRA League</li>
+            <li>Style: Easy-going, respectful, fun-loving</li>
+            <li>Schedule: Regular weeklies + monthly Galaxy Cups</li>
+            <li>HQ: Discord-first for announcements, trade, new cards/erratum, applications, e.g.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Get set up</h3>
+          <ul>
+            <li>Click the Discord button or scan the QR to join instantly</li>
+            <li>Introduce yourself in #new-buddies and see the #rules</li>
+            <li>Grab your roles for events, sparring, and stream alerts</li>
+            <li>Ready to grind? Post your availability and get matched</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-flex">
+        <div>(c) 2025 901 ULTRA League - Built for the players.</div>
+        <a href="https://discord.gg/kbVHK566sM" target="_blank" rel="noreferrer noopener">Join the Discord</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
